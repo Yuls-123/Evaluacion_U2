@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'registro.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'peliculabd',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': '2005',
         'HOST': 'localhost',

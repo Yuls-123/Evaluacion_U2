@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .forms import PeliculaForm
-from .models import Pelicula
-from django.utils import timezone
+from .models import pelicula
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
 
 def home(request):
     return render(request, "home.html")
@@ -35,8 +35,6 @@ def signup(request):
                 "error": "Las contraseñas no coinciden"
             })
 
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, authenticate
 
 def signin(request):
     if request.method == "GET":
@@ -64,7 +62,7 @@ def lista_peliculas(request):
     if not request.user.is_authenticated:
         return redirect("signin")
     
-    peliculas = Pelicula.objects.filter(usuario=request.user)
+    peliculas = pelicula.objects.filter(usuario=request.user)
     return render(request, "lista_peliculas.html", {"peliculas": peliculas})
 
 def agregar_pelicula(request):
@@ -91,12 +89,12 @@ def pelicula_detail(request, pelicula_id):
         return redirect("signin")
     
     if request.method == "GET":
-        pelicula = get_object_or_404(Pelicula, pk=pelicula_id, usuario=request.user)
+        pelicula = get_object_or_404(pelicula, pk=pelicula_id, usuario=request.user)
         form = PeliculaForm(instance=pelicula)
         return render(request, "pelicula_detail.html", {"pelicula": pelicula, "form": form})
     else:
         try:
-            pelicula = get_object_or_404(Pelicula, pk=pelicula_id, usuario=request.user)
+            pelicula = get_object_or_404(pelicula, pk=pelicula_id, usuario=request.user)
             form = PeliculaForm(request.POST, instance=pelicula)
             form.save()
             return redirect("lista_peliculas")
@@ -111,7 +109,7 @@ def eliminar_pelicula(request, pelicula_id):
     if not request.user.is_authenticated:
         return redirect("signin")
     
-    pelicula = get_object_or_404(Pelicula, pk=pelicula_id, usuario=request.user)
+    pelicula = get_object_or_404(pelicula, pk=pelicula_id, usuario=request.user)
     if request.method == "POST":
         pelicula.delete()
         return redirect("lista_peliculas")

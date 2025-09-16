@@ -8,7 +8,7 @@ class pelicula(models.Model):
     Idioma = models.CharField(max_length=100)
     fecha_creacion = models.DateField(auto_now_add=True)
     sinopsis = models.TextField(blank=True)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.titulo + " - por " + self.usuario.username
