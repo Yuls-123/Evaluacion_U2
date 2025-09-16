@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Agregar Nueva Película</h2>
+{{ error }}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Agregar Película</button>
+</form>
+<p><a href="{% url 'lista_peliculas' %}">Volver a la lista</a></p>
+{% endblock %}

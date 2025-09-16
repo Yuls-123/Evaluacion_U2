@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Películas</title>
+</head>
+<body>
+    <header>
+        <h1>Mi Colección de Películas</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Inicio</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'lista_peliculas' %}">Mis Películas</a></li>
+                    <li><a href="{% url 'agregar_pelicula' %}">Agregar Película</a></li>
+                    <li><a href="{% url 'signout' %}">Cerrar Sesión ({{ user.username }})</a></li>
+                {% else %}
+                    <li><a href="{% url 'signin' %}">Iniciar Sesión</a></li>
+                    <li><a href="{% url 'signup' %}">Registrarse</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

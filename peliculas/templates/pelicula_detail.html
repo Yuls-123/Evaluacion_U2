@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Detalles de: {{ pelicula.titulo }}</h2>
+{{ error }}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Actualizar</button>
+</form>
+
+<form action="{% url 'eliminar_pelicula' pelicula.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Eliminar</button>
+</form>
+
+<p><a href="{% url 'lista_peliculas' %}">Volver a la lista</a></p>
+{% endblock %}

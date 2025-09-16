@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Mis Películas</h2>
+
+{% if peliculas %}
+    <ul>
+    {% for pelicula in peliculas %}
+        <li>
+            <a href="{% url 'pelicula_detail' pelicula.id %}">
+                <strong>{{ pelicula.titulo }}</strong> ({{ pelicula.año }}) - {{ pelicula.get_genero_display }}
+            </a>
+            <p>Director: {{ pelicula.director }}</p>
+            <p>Duración: {{ pelicula.duracion }} minutos</p>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tienes películas registradas. <a href="{% url 'agregar_pelicula' %}">Agrega una ahora</a>.</p>
+{% endif %}
+{% endblock %}

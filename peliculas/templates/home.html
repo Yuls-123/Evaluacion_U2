@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Bienvenido al Sistema de Gestión de Películas</h2>
+<p>Aquí puedes gestionar tu colección personal de películas.</p>
+{% if not user.is_authenticated %}
+<p>Por favor <a href="{% url 'signin' %}">inicia sesión</a> o <a href="{% url 'signup' %}">regístrate</a> para comenzar.</p>
+{% endif %}
+{% endblock %} 
